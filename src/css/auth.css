@@ -1,0 +1,97 @@
+.login-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #f5f7fa; /* light neutral background */
+}
+
+.login-card {
+  background: #ffffff;
+  padding: 2.5rem;
+  border-radius: 8px;
+  width: 420px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  text-align: center;
+  color: #343741; /* dark text */
+}
+
+.login-header h1 {
+  margin: 0.5rem 0;
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.login-header p {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #69707d; /* soft gray */
+}
+
+.login-logo {
+  height: 56px;
+  margin-bottom: 1rem;
+}
+
+/* Form */
+.login-form {
+  margin-top: 1.5rem;
+  text-align: left;
+}
+
+.login-form label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #343741;
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.login-form input {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border: 1px solid #d3dae6; /* light gray border */
+  border-radius: 4px;
+  font-size: 1rem;
+  background: #ffffff;
+  color: #000;
+  transition: border 0.2s, box-shadow 0.2s;
+}
+
+.login-form input:focus {
+  border-color: #006bb4; /* Kibana blue */
+  outline: none;
+  box-shadow: 0 0 0 1px #006bb4;
+}
+
+/* Button */
+.login-form button {
+  width: 100%;
+  padding: 0.8rem;
+  background: #006bb4; /* Kibana blue */
+  border: none;
+  border-radius: 4px;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.login-form button:hover {
+  background: #004d86; /* darker blue */
+}
+
+/* Footer */
+.login-footer {
+  margin-top: 1.5rem;
+  font-size: 0.85rem;
+  color: #69707d;
+}
+
+.login-footer a {
+  color: #006bb4;
+  font-weight: 500;
+}

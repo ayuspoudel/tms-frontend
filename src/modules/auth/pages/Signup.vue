@@ -14,17 +14,20 @@
         <label>Last Name</label>
         <input v-model="lastName" type="text" placeholder="Poudel" required />
 
-        <label>Username</label>
-        <input v-model="username" type="text" placeholder="ayuspoudel" required />
-
         <label>Email</label>
         <input v-model="email" type="email" placeholder="ayushpoudel@gmail.com" required />
 
         <label>Password</label>
         <input v-model="password" type="password" placeholder="••••••••" required />
 
-        <button type="submit">Sign Up</button>
+        <button type="submit" :disabled="loading">
+          {{ loading ? "Creating account..." : "Sign Up" }}
+        </button>
       </form>
+
+      <!-- States -->
+      <div v-if="successMessage" class="success-msg">{{ successMessage }}</div>
+      <div v-if="errorMessage" class="error-msg">{{ errorMessage }}</div>
 
       <div class="login-footer">
         <p>Already have an account?
@@ -38,30 +41,69 @@
 <script setup>
 import { ref } from "vue";
 import { useRouter } from "vue-router";
-import { useAuthStore } from "../../../store/auth";
+import { useAuthStore } from "../../../store/auth.store";
 import BrandHeader from "@/components/BrandHeader.vue";
 
+// Form state
 const firstName = ref("");
 const lastName = ref("");
-const username = ref("");
 const email = ref("");
 const password = ref("");
+
+// UI state
+const loading = ref(false);
+const successMessage = ref("");
+const errorMessage = ref("");
 
 const auth = useAuthStore();
 const router = useRouter();
 
 async function handleSignup() {
+  successMessage.value = "";
+  errorMessage.value = "";
+  loading.value = true;
+
   try {
-    await auth.signup({
+    const res = await auth.signup({
       email: email.value,
       password: password.value,
       firstName: firstName.value,
       lastName: lastName.value,
-      username: username.value,
     });
-    router.push("/dashboard");
+
+    successMessage.value = res.message || "Signup successful!";
+    // Redirect after short delay
+    setTimeout(() => {
+      router.push("/dashboard");
+    }, 1200);
   } catch (err) {
-    alert("Signup failed. Please check your input.");
+    errorMessage.value =
+      err?.response?.data?.message || err.message || "Signup failed. Please try again.";
+  } finally {
+    loading.value = false;
   }
 }
 </script>
+
+<style scoped>
+.success-msg {
+  margin-top: 1rem;
+  color: #065f46;
+  background: #d1fae5;
+  padding: 0.5rem 0.75rem;
+  border-radius: 4px;
+}
+
+.error-msg {
+  margin-top: 1rem;
+  color: #991b1b;
+  background: #fee2e2;
+  padding: 0.5rem 0.75rem;
+  border-radius: 4px;
+}
+
+button[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+</style>

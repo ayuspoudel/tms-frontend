@@ -1,11 +1,15 @@
 <template>
   <div id="app">
-    <!-- Auth pages: no sidebar -->
+    <!-- Auth pages: no sidebar, no breadcrumb -->
     <template v-if="!isAuthRoute">
       <div class="layout">
         <NavBar />
         <main class="content">
-          <router-view v-slot="{ Component }">
+          <!-- breadcrumb bar -->
+          <Breadcrumb :items="breadcrumbs" />
+
+          <!-- route content -->
+          <router-view v-slot="{ Component }" @update-breadcrumb="setBreadcrumb">
             <component :is="Component" />
           </router-view>
         </main>
@@ -22,15 +26,21 @@
 </template>
 
 <script setup>
-import { computed } from "vue";
+import { ref, computed } from "vue";
 import { useRoute } from "vue-router";
 import NavBar from "./components/SideBar.vue";
+import Breadcrumb from "./components/Breadcrumb.vue";
 
 const route = useRoute();
+const breadcrumbs = ref([]);
 
 const isAuthRoute = computed(() =>
   ["/login", "/signup"].includes(route.path)
 );
+
+function setBreadcrumb(items) {
+  breadcrumbs.value = items;
+}
 </script>
 
 <style>
@@ -51,13 +61,24 @@ const isAuthRoute = computed(() =>
 .content {
   flex: 1;
   margin-left: 180px; /* match sidebar width */
-  padding: 1rem;
+  display: flex;
+  flex-direction: column;
   overflow-y: auto;
   transition: margin-left 0.3s ease;
 }
 
-/* Optional: if you use collapsed state */
+/* Breadcrumb sits at top of content */
+.content > nav {
+  flex-shrink: 0;
+}
+
+/* Route content fills remaining */
+.content > *:not(nav) {
+  flex: 1;
+}
+
+/* Optional: collapsed sidebar */
 .sidebar.collapsed + .content {
-  margin-left: 60px; /* match collapsed sidebar width */
+  margin-left: 60px;
 }
 </style>

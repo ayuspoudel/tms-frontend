@@ -3,7 +3,7 @@
   position: fixed;
   top: 0;
   left: 0;
-  width: 180px; /* smaller default */
+  width: 180px; /* default expanded */
   height: 100vh;
   background-color: #1f2937; /* dark gray */
   color: #fff;
@@ -14,34 +14,23 @@
   overflow: hidden;
   z-index: 100;
 }
-.brand-logo-small {
-  height: 70px;
-  margin-bottom: 0rem;
-  margin-right: 10rem;
 
-}
 .sidebar.collapsed {
-  width: 50px; /* tighter collapsed */
+  width: 50px; /* collapsed width */
 }
 
-.sidebar-mainmenu {
-    color: #9ca3af; /* lighter gray */
-    font-size: 1rem; /* smaller text */
-    font-weight: 600;
-    padding: 0rem 0rem 0 2rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
+/* Logo */
+.brand-logo-small {
+  height: 40px;
+  margin-left: 0.5rem;
 }
 
-.sidebar-mainmenu.sidebar.collapsed{
-    display: none;
-}
 /* Header */
 .sidebar-header {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  padding: 2rem 1rem;
+  padding: 1rem;
 }
 
 .menu-btn {
@@ -59,15 +48,31 @@
 }
 
 .brand {
-  font-size: 1rem; /* smaller brand text */
+  font-size: 1rem;
   font-weight: bold;
   margin-left: 0.5rem;
-  color: #2f855a; /* green from logo */
+  color: #2f855a; /* green highlight */
+}
+
+/* Section Labels */
+.sidebar-mainmenu {
+  color: #9ca3af;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.75rem 1rem 0.25rem 1.25rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.sidebar.collapsed .sidebar-mainmenu {
+  display: none;
 }
 
 /* Navigation */
 .sidebar-nav {
-  flex: 1;
+  flex: 1; /* take available height */
+  display: flex;
+  flex-direction: column;
   margin-top: 0.5rem;
 }
 
@@ -81,20 +86,27 @@
   margin: 0.2rem 0;
 }
 
-.sidebar-nav a {
+.sidebar-nav a,
+.logout-btn {
   display: flex;
   align-items: center;
-  gap: 0.5rem; /* smaller spacing */
-  padding: 0.5rem 0.75rem; /* reduced padding */
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
   text-decoration: none;
   color: #d1d5db;
-  font-size: 0.85rem; /* smaller font */
+  font-size: 0.85rem;
   font-weight: 500;
   transition: background 0.2s, color 0.2s, border-left 0.2s;
   border-left: 3px solid transparent;
+  background: none;
+  border: none;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
 }
 
-.sidebar-nav a:hover {
+.sidebar-nav a:hover,
+.logout-btn:hover {
   background: #2d3748;
   color: #fff;
 }
@@ -109,7 +121,7 @@
 
 /* Icons */
 .icon {
-  width: 20px; /* smaller icons */
+  width: 20px;
   height: 20px;
   flex-shrink: 0;
   stroke: currentColor;
@@ -120,4 +132,21 @@
 .divider {
   border-top: 1px solid #374151;
   margin: 0.5rem 0;
+}
+
+/* Logout at bottom */
+.logout-container {
+  margin-top: auto; /* push logout to bottom */
+  padding: 1rem 0;
+  border-top: 1px solid #374151;
+}
+
+.logout-btn {
+  color: #f87171; /* red */
+  font-weight: 600;
+}
+
+.logout-btn:hover {
+  background: #7f1d1d;
+  color: #fff;
 }

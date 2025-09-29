@@ -34,7 +34,7 @@
 <script setup>
 import { ref } from "vue";
 import { useRouter } from "vue-router";
-import { useAuthStore } from "../../../store/auth";
+import { useAuthStore } from "../../../store/auth.store";
 import BrandHeader from "@/components/BrandHeader.vue";
 
 const email = ref("");
@@ -44,7 +44,7 @@ const router = useRouter();
 
 async function handleLogin() {
   try {
-    await auth.login(email.value, password.value);
+    await auth.login({email: email.value, password: password.value});
     router.push("/dashboard");
   } catch (err) {
     alert("Login failed. Please check your credentials.");

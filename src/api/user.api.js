@@ -1,7 +1,9 @@
 import api from "./index";
+import { API_PATHS } from "../config/api";
 
-export const listUsersApi = () => api.get("/user/list");
+// User APIs
+export const listUsersApi = () => api.get(API_PATHS.user.list);
 export const updateUserRoleApi = (id, role) =>
-  api.patch(`/user/${id}/role`, { role });
-export const suspendUserApi = (id) => api.patch(`/user/${id}/suspend`);
-export const activateUserApi = (id) => api.patch(`/user/${id}/activate`);
+  api.patch(API_PATHS.user.updateRole(id), { role });
+export const suspendUserApi = (id) => api.patch(API_PATHS.user.suspend(id));
+export const activateUserApi = (id) => api.patch(API_PATHS.user.activate(id));

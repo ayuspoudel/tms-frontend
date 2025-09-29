@@ -104,6 +104,26 @@
             <span v-if="!isCollapsed">User Management</span>
           </router-link>
         </li>
+
+        <li class="divider"></li>
+
+        <!-- 🔴 Logout Option -->
+        <li>
+          <button class="logout-btn" @click="handleprofile">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h6a2 2 0 012 2v1" />
+            </svg>
+            <span v-if="!isCollapsed">Profile</span>
+          </button>
+          <button class="logout-btn" @click="handleLogout">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h6a2 2 0 012 2v1" />
+            </svg>
+            <span v-if="!isCollapsed">Logout</span>
+          </button>
+        </li>
       </ul>
     </nav>
   </aside>
@@ -111,8 +131,39 @@
 
 <script setup>
 import { ref } from "vue";
+import { useRouter } from "vue-router";
+import { useAuthStore } from "@/store/auth.store";
+
 const isCollapsed = ref(false);
+const router = useRouter();
+const authStore = useAuthStore();
+
 function toggleSidebar() {
   isCollapsed.value = !isCollapsed.value;
 }
+async function handleprofile() {
+  router.push("/profile");
+}
+async function handleLogout() {
+  await authStore.logout(); // clears state + calls backend
+  router.push("/login");
+}
 </script>
+
+<style scoped>
+.logout-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  width: 100%;
+  text-align: left;
+}
+.logout-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+</style>

@@ -74,6 +74,10 @@ const routes = [
     component: () => import("../modules/integrations/pages/Integrations.vue"),
     meta: { requiresAuth: true },
   },
+  {path: "/integrations/aws",
+    component: () => import("../modules/integrations/pages/AWSIntegration.vue"),
+    meta: { requiresAuth: true }
+  },
 
   // Cluster Management
   {

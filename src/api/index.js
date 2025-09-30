@@ -10,7 +10,7 @@ api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("accessToken");
 
-    // 🔍 Debug
+    // Debug
     console.debug("[Axios Request]", config.method?.toUpperCase(), config.url);
     if (token) {
       console.debug("[Axios Request] Attaching token:", token.slice(0, 20) + "...");
@@ -34,7 +34,7 @@ api.interceptors.response.use(
   async (error) => {
     const originalRequest = error.config;
 
-    // 🔍 Debug
+    // Debug
     console.error("[Axios Error]", error.response?.status, error.response?.data);
 
     if (error.response?.status === 403 && !originalRequest._retry) {
